@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Edition d'un produit
+{% endblock %}
+{% block body %}
+    <h2>Edition du produit</h2>
+    <form>
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="text" class="form-control" id="id"
+                   placeholder="Id" value="{{ produit.id }}">
+        </div>
+        <div class="form-group">
+            <label for="libelle">Libellé</label>
+            <input type="text" class="form-control" id="libelle"
+                   placeholder="Libellé" value="{{ produit.libelle }}">
+        </div>
+        <div class="form-group">
+            <label for="qte">Quantité</label>
+            <input type="text" class="form-control" id="qte"
+                   placeholder="Quantité" value="{{ produit.qte }}">
+        </div>
+        <div class="form-group">
+            <label for="prixht">Prixt HT</label>
+            <input type="text" class="form-control" id="prixht"
+                   placeholder="Prixt HT" value="{{ produit.prixht }}">
+        </div>
+        <button type="submit" class="btn btn-default">Valider</button>
+    </form>
+{% endblock %}
