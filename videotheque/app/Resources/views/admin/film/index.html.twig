@@ -1,0 +1,64 @@
+{# app/Resources/views/admin/film/index.html.twig #}
+{% extends 'base.html.twig' %}
+{% block title %}
+    Liste des films
+{% endblock %}
+{% block body %}
+
+    
+        <h1>Liste des films</h1>
+        <ul class="pagination">
+            {# On utilise la fonction range(a, b) qui crée un tableau de
+           valeurs entre a et b #}
+            {% for p in range(1, nbPages) %}
+                <li class="page-item{% if p == page %} active{% endif %} ">
+                    <a class="page-link" href="{{ path('film_index', {'page':
+                        p}) }}">
+                        {{ p }}
+                        {% if p == page %}<span class="sronly">(current)</span>{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <table class="table table-striped table-bordered table-condensed">
+
+
+
+
+
+    <h1>Liste des films</h1>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <th>Titre</th>
+        <th>Genre</th>
+        <th>Année</th>
+        <th>Résumé</th>
+        <th width="120"></th>
+        </thead>
+        <tbody>
+        {% for film in arrayFilms %}
+            <tr id="{{ film.idfilm }}">
+                <td id="titre">{{ film.titre }}</td>
+                <td>{{ film.genre.nom }}</td>
+                <td>{{ film.annee }}</td>
+                <td>{{ film.resume }}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>&nbsp;Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">Aucun film n'a été trouvé.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        </table>
+        <ul class="pagination">
+            {% for p in range(1, nbPages) %}
+                <li{% if p == page %} class="active"{% endif %}>
+                    <a href="{{ path('film_index', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+{% endblock %}

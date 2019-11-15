@@ -41,5 +41,76 @@ class Notation
     private $idfilm;
 
 
-}
 
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Notation
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set note
+     *
+     * @param integer $note
+     *
+     * @return Notation
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return integer
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * Set idfilm
+     *
+     * @param \AppBundle\Entity\Film $idfilm
+     *
+     * @return Notation
+     */
+    public function setIdfilm(\AppBundle\Entity\Film $idfilm)
+    {
+        $this->idfilm = $idfilm;
+
+        return $this;
+    }
+
+    /**
+     * Get idfilm
+     *
+     * @return \AppBundle\Entity\Film
+     */
+    public function getIdfilm()
+    {
+        return $this->idfilm;
+    }
+}
