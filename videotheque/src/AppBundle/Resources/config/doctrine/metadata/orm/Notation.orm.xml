@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Notation" table="notation">
+    <indexes>
+      <index name="IDX_268BC95F1B9E0BC" columns="idFilm"/>
+    </indexes>
+    <id name="email" type="string" column="email" length="40"/>
+    <id name="idfilm" association-key="true"/>
+    <field name="note" type="integer" column="note" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="idfilm" target-entity="Film" fetch="LAZY">
+      <join-columns>
+        <join-column name="idFilm" referenced-column-name="idFilm"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

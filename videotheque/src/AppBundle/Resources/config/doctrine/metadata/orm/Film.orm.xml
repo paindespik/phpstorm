@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Film" table="film">
+    <indexes>
+      <index name="idRealisateur" columns="idRealisateur"/>
+      <index name="codePays" columns="codePays"/>
+      <index name="genre" columns="genre"/>
+    </indexes>
+    <id name="idfilm" type="integer" column="idFilm">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="titre" type="string" column="titre" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="annee" type="integer" column="annee" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="resume" type="text" column="resume" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default">NULL</option>
+      </options>
+    </field>
+    <field name="codepays" type="string" column="codePays" length="4" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default">NULL</option>
+      </options>
+    </field>
+    <many-to-one field="idrealisateur" target-entity="Artiste" fetch="LAZY">
+      <join-columns>
+        <join-column name="idRealisateur" referenced-column-name="idArtiste"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="genre" target-entity="Genre" fetch="LAZY">
+      <join-columns>
+        <join-column name="genre" referenced-column-name="code"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="idacteur" target-entity="Artiste" inversed-by="idfilm" fetch="LAZY">
+      <join-table name="role">
+        <join-columns>
+          <join-column name="idFilm" referenced-column-name="idFilm"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="idActeur" referenced-column-name="idArtiste"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>
