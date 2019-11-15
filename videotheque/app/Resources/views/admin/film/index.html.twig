@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 
-    
+
         <h1>Liste des films</h1>
         <ul class="pagination">
             {# On utilise la fonction range(a, b) qui crée un tableau de
@@ -43,8 +43,10 @@
                 <td>{{ film.annee }}</td>
                 <td>{{ film.resume }}</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>&nbsp;Modifier</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('film_edit', {
+                        'id': film.idfilm }) }}">
+                        <i class="fa fa-pencil-alt" ariahidden="true"></i>&nbsp;Modifier
+                    </a>
                 </td>
             </tr>
         {% else %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Modification du film
+{% endblock %}
+{% block body %}
+<h2>
+    {% if film.idfilm %}
+        Modification du film {{ film.idfilm }}
+    {% else %}
+        Ajout d'un film
+    {% endif %}
+</h2>
+<form class="form-horizontal" action="{% if film.idfilm %}{{
+path('film_edit', {'id':film.idfilm}) }}{% else %}{{ path('film_add') }}{%
+    endif %}"
+      method="post">
+    <form class="form-horizontal" action="{{ path('film_edit',
+        {'id':film.idfilm}) }}" method="post">
+        {{ form_errors(form) }}
+        {{ form_row(form.titre) }}
+        {{ form_row(form.annee) }}
+        {{ form_row(form.resume) }}
+        {{ form_row(form.genre) }}
+        {{ form_row(form.idrealisateur) }}
+        {{ form_rest(form) }}
+        <input type="submit" id="submit" name="submit" class="btn btndefault" value="Valider" />
+    </form>
+{% endblock %}

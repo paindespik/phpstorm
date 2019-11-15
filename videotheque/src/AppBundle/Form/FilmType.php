@@ -11,10 +11,37 @@ class FilmType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array
+    $options)
     {
-        $builder->add('titre')->add('annee')->add('resume')->add('codepays')->add('idrealisateur')->add('genre')->add('idacteur');
-    }/**
+        // Ajout des champs "classiques"
+        $builder
+            ->add('titre',
+                'Symfony\Component\Form\Extension\Core\Type\TextType', array('label' =>
+                    'Titre'))
+            ->add('annee',
+                'Symfony\Component\Form\Extension\Core\Type\NumberType', array('label' =>
+                    'Année'))
+            ->add('resume',
+                'Symfony\Component\Form\Extension\Core\Type\TextareaType', array('label' =>
+                    'Résumé'));
+        // Ajout des champs liés à une table
+        $builder->add('genre',
+            'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                'class' => 'AppBundle:Genre',
+                'required' =>true,
+                'label' => "Genre",
+                'choice_label' => 'nom',
+            ));
+        $builder->add('idrealisateur',
+            'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                'class' => 'AppBundle:Artiste',
+                'required' =>true,
+                'label' => "Réalisateur",
+                'choice_label' => 'nom',
+            ));
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -23,7 +50,6 @@ class FilmType extends AbstractType
             'data_class' => 'AppBundle\Entity\Film'
         ));
     }
-
     /**
      * {@inheritdoc}
      */
@@ -31,6 +57,4 @@ class FilmType extends AbstractType
     {
         return 'appbundle_film';
     }
-
-
 }
