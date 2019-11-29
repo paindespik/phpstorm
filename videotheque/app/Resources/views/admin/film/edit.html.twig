@@ -14,8 +14,7 @@
 path('film_edit', {'id':film.idfilm}) }}{% else %}{{ path('film_add') }}{%
     endif %}"
       method="post">
-    <form class="form-horizontal" action="{{ path('film_edit',
-        {'id':film.idfilm}) }}" method="post">
+
         {{ form_errors(form) }}
         {{ form_row(form.titre) }}
         {{ form_row(form.annee) }}

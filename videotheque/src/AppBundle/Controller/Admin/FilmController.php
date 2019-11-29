@@ -1,8 +1,10 @@
 <?php
 namespace AppBundle\Controller\Admin;
+use AppBundle\Entity\Film;
 use AppBundle\Form\FilmType;
 use AppBundle\Manager\FilmManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,5 +99,47 @@ class FilmController extends Controller
         }
         return $this->render('admin/film/edit.html.twig', array('form' =>
             $model->createView(), 'film' => $film));
+    }
+
+
+    /**
+     * @Route("/admin/film/delete", name="film_delete")
+     */
+    public function deleteAction(Request $request)
+    {
+        // Si l'utilisateur appelle bien la suppresion en AJAX - POST
+        if ($request->getMethod() == 'POST') {
+            // Récupération de l'ID du film à supprimer
+            $id = $request->request->get('id');
+            // Obtention du manager
+            $manager = $this->getManager();
+            // Recherche du film
+            if ($film = $manager->loadFilm($id)) {
+                $message = sprintf("Le film num %u a ete supprimé", $id);
+                $status = 0;
+                // Suppression du film
+                try {
+                    $manager->removeFilm($film);
+                } catch (\Exception $e) {
+                    $message = sprintf("L'erreur suivante est survenue lors de
+la suppression du film num %u : %s",
+                        $id, $e->getMessage());
+                    $status = -1;
+                }
+            } else {
+                $message = "Le film n'existe pas";
+                $status = -1;
+            }
+        }
+        else
+        {
+            $message = "L'appel de la méthode de suppression est incorrecte";
+            $status = $id = -1;
+        }
+        // Retour du résultat en Json
+        $response = new Response(json_encode(array('status' => $status,
+            'message' => $message, 'id' => $id)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 }
